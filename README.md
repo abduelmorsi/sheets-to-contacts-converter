@@ -1,7 +1,7 @@
 ```markdown
 # Contact Converter
 
-A simple web application/Desktop application to convert sheet files to contacts. Import contacts from Google Sheets or CSV files and export them as CSV (Google Contacts format) or VCF (vCard).
+A simple web application with a desktop application version to convert sheet files to contacts. Import contacts from Google Sheets or CSV files and export them as CSV (Google Contacts format) or VCF (vCard).
 
 ## 🌐 Live Demo
 Access the web version at: [Contact Converter](https://aelmorsi.pythonanywhere.com/)
@@ -35,7 +35,7 @@ Download the latest desktop version from the [Releases](../../releases) page.
 ## 🛠️ Running Locally
 ```bash
 # Clone the repository
-git clone https://github.com/abduelmorsi/sheets-to-contacts-converter
+git clone https://github.com/abduelmorsi/sheets-to-contacts-converter.git
 
 # Install dependencies
 pip install -r requirements.txt
