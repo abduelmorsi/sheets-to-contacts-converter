@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
 import pandas as pd
 import requests
+import io
 
 class ContactConverterApp:
     def __init__(self, root):
@@ -73,9 +74,10 @@ class ContactConverterApp:
                 response = requests.get(csv_url)
                 if response.status_code != 200:
                     raise ValueError("Unable to access the sheet. Make sure it's published to the web.")
-                df = pd.read_csv(pd.io.common.StringIO(response.text))
+                response.encoding = 'utf-8-sig'  # Ensure the response is decoded correctly
+                df = pd.read_csv(io.StringIO(response.text))
             else:
-                df = pd.read_csv(sheet_url)
+                df = pd.read_csv(sheet_url, encoding='utf-8-sig')
 
             name_col_letter = self.name_col.get().upper()
             phone_col_letter = self.phone_col.get().upper()
