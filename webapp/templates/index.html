@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="file"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .column-inputs {
+            display: flex;
+            gap: 10px;
+        }
+        .column-input {
+            width: 50px !important;
+        }
+    </style>
+</head>
+<body>
+    <h1>Contact Converter</h1>
+    <form method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="sheet_url">Google Sheet URL:</label>
+            <input type="text" id="sheet_url" name="sheet_url" placeholder="https://docs.google.com/spreadsheets/d/...">
+        </div>
+        
+        <div class="form-group">
+            <label for="csv_file">Or Upload CSV:</label>
+            <input type="file" id="csv_file" name="csv_file" accept=".csv">
+        </div>
+
+        <div class="form-group">
+            <label for="name_prefix">Name Prefix (optional):</label>
+            <input type="text" id="name_prefix" name="name_prefix">
+        </div>
+
+        <div class="form-group">
+            <label>Column Letters:</label>
+            <div class="column-inputs">
+                <div>
+                    <label for="name_col">Name</label>
+                    <input type="text" id="name_col" name="name_col" class="column-input" value="B" maxlength="1">
+                </div>
+                <div>
+                    <label for="phone_col">Phone</label>
+                    <input type="text" id="phone_col" name="phone_col" class="column-input" value="C" maxlength="1">
+                </div>
+            </div>
+            <div>
+                <label for="output_format">Output Format:</label>
+                <select name="output_format" id="output_format">
+                    <option value="csv">CSV (Google Contacts)</option>
+                    <option value="vcf">VCF (vCard)</option>
+                </select>
+            </div> 
+        </div>
+
+        <input type="submit" value="Convert">
+    </form>
+</body>
+</html>
