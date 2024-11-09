@@ -1,4 +1,3 @@
-```markdown
 # Contact Converter
 
 A simple web application with a desktop application version to convert sheet files to contacts. Import contacts from Google Sheets or CSV files and export them as CSV (Google Contacts format) or VCF (vCard).
