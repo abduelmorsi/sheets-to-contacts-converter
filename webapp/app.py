@@ -5,7 +5,6 @@ import requests
 
 app = Flask(__name__)
 
-# Add this new function to create VCF content
 def create_vcf(df, name_col, phone_col):
     vcf_content = []
     for _, row in df.iterrows():
@@ -36,11 +35,15 @@ def index():
                 response = requests.get(csv_url)
                 if response.status_code != 200:
                     return "Unable to access the sheet. Make sure it's published to the web.", 400
-                df = pd.read_csv(io.StringIO(response.text))
+                response.encoding = 'utf-8'  # Ensure the response is decoded as 'utf-8'
+                content = response.text
+                if content.startswith('\ufeff'):
+                    content = content[1:]  # Remove BOM if present
+                df = pd.read_csv(io.StringIO(content), encoding='utf-8')
             else:
                 file = request.files['csv_file']
                 if file:
-                    df = pd.read_csv(file)
+                    df = pd.read_csv(file, encoding='utf-8')
                 else:
                     return "No file uploaded", 400
 
