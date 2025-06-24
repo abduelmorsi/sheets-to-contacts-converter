@@ -1,93 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Converter</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        input[type="text"],
-        input[type="file"] {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        input[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 100%;
-        }
-        input[type="submit"]:hover {
-            background-color: #45a049;
-        }
-        .column-inputs {
-            display: flex;
-            gap: 10px;
-        }
-        .column-input {
-            width: 50px !important;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Converter</title>
+  <style>
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #333333;
+      --input-bg: #f9f9f9;
+      --input-border: #cccccc;
+      --button-bg: #4caf50;
+      --button-bg-hover: #45a049;
+      --card-bg: #ffffff;
+      --shadow-color: rgba(0, 0, 0, 0.1);
+    }
+
+    body.dark-mode {
+      --bg-color: #121212;
+      --text-color: #e0e0e0;
+      --input-bg: #1e1e1e;
+      --input-border: #333333;
+      --button-bg: #2e7d32;
+      --button-bg-hover: #1b5e20;
+      --card-bg: #1e1e1e;
+      --shadow-color: rgba(0, 0, 0, 0.5);
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 20px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      margin-top: 0;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 600px;
+      width: 100%;
+    }
+
+    .dark-mode-toggle {
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    .toggle-label {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+    }
+
+    .toggle-label input {
+      margin-right: 8px;
+      cursor: pointer;
+    }
+
+    form {
+      background-color: var(--card-bg);
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px var(--shadow-color);
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="file"],
+    select {
+      width: 100%;
+      padding: 8px;
+      background-color: var(--input-bg);
+      border: 1px solid var(--input-border);
+      border-radius: 4px;
+      box-sizing: border-box;
+      color: var(--text-color);
+    }
+
+    input[type="submit"] {
+      background-color: var(--button-bg);
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+
+    input[type="submit"]:hover {
+      background-color: var(--button-bg-hover);
+    }
+
+    .column-inputs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .column-input {
+      width: 50px !important;
+    }
+  </style>
 </head>
 <body>
+  <div class="container">
+    <div class="dark-mode-toggle">
+      <label class="toggle-label">
+        <input type="checkbox" id="darkModeToggle" />
+        Dark Mode
+      </label>
+    </div>
+
     <h1>Contact Converter</h1>
     <form method="POST" enctype="multipart/form-data">
-        <div class="form-group">
-            <label for="sheet_url">Google Sheet URL:</label>
-            <input type="text" id="sheet_url" name="sheet_url" placeholder="https://docs.google.com/spreadsheets/d/...">
-        </div>
-        
-        <div class="form-group">
-            <label for="csv_file">Or Upload CSV:</label>
-            <input type="file" id="csv_file" name="csv_file" accept=".csv">
-        </div>
+      <div class="form-group">
+        <label for="sheet_url">Google Sheet URL:</label>
+        <input type="text" id="sheet_url" name="sheet_url" placeholder="https://docs.google.com/spreadsheets/d/..." />
+      </div>
 
-        <div class="form-group">
-            <label for="name_prefix">Name Prefix (optional):</label>
-            <input type="text" id="name_prefix" name="name_prefix">
-        </div>
+      <div class="form-group">
+        <label for="csv_file">Or Upload CSV:</label>
+        <input type="file" id="csv_file" name="csv_file" accept=".csv" />
+      </div>
 
-        <div class="form-group">
-            <label>Column Letters:</label>
-            <div class="column-inputs">
-                <div>
-                    <label for="name_col">Name</label>
-                    <input type="text" id="name_col" name="name_col" class="column-input" value="B" maxlength="1">
-                </div>
-                <div>
-                    <label for="phone_col">Phone</label>
-                    <input type="text" id="phone_col" name="phone_col" class="column-input" value="C" maxlength="1">
-                </div>
-            </div>
-            <div>
-                <label for="output_format">Output Format:</label>
-                <select name="output_format" id="output_format">
-                    <option value="csv">CSV (Google Contacts)</option>
-                    <option value="vcf">VCF (vCard)</option>
-                </select>
-            </div> 
-        </div>
+      <div class="form-group">
+        <label for="name_prefix">Name Prefix (optional):</label>
+        <input type="text" id="name_prefix" name="name_prefix" />
+      </div>
 
-        <input type="submit" value="Convert">
+      <div class="form-group">
+        <label>Column Letters:</label>
+        <div class="column-inputs">
+          <div>
+            <label for="name_col">Name</label>
+            <input type="text" id="name_col" name="name_col" class="column-input" value="B" maxlength="1" />
+          </div>
+          <div>
+            <label for="phone_col">Phone</label>
+            <input type="text" id="phone_col" name="phone_col" class="column-input" value="C" maxlength="1" />
+          </div>
+        </div>
+        <div>
+          <label for="output_format">Output Format:</label>
+          <select name="output_format" id="output_format">
+            <option value="csv">CSV (Google Contacts)</option>
+            <option value="vcf">VCF (vCard)</option>
+          </select>
+        </div>
+      </div>
+
+      <input type="submit" value="Convert" />
     </form>
+  </div>
+
+  <script>
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    darkModeToggle.addEventListener('change', function () {
+      document.body.classList.toggle('dark-mode', this.checked);
+    });
+  </script>
 </body>
 </html>
